@@ -35,8 +35,6 @@ class PostController extends Controller
 
         Post::create($request->validated()); // Use validated data from the form request
 
-        flasher()->addSuccess('Post created successfully!'); // Added Flasher success message
-
         return redirect()->route('posts.index');
     }
 }
