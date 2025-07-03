@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 // Removed Illuminate\Http\Request as it's no longer used.
 use App\Http\Requests\StorePostRequest;
+use Flasher\FlasherNotyf\FlasherNotyf;
+use Flasher\Laravel\Facade\Flasher;
+
 
 class PostController extends Controller
 {
@@ -35,6 +38,7 @@ class PostController extends Controller
 
         Post::create($request->validated()); // Use validated data from the form request
 
+        Flasher::success('Post created successfully!');
         return redirect()->route('posts.index');
     }
 }

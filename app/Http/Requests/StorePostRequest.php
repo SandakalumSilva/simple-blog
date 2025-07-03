@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Flasher\Laravel\Facade\Flasher;
 
 class StorePostRequest extends FormRequest
 {
@@ -29,5 +30,17 @@ class StorePostRequest extends FormRequest
             'title' => 'required|max:255',
             'body' => 'required',
         ];
+
+    }
+
+     public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        // Trigger error notifications for each validation error
+        foreach ($validator->errors()->all() as $error) {
+            Flasher::error($error);  // Show each error as an error notification
+        }
+
+        // Redirect back with validation errors
+        parent::failedValidation($validator);
     }
 }
